@@ -1,0 +1,23 @@
+{
+  "name": "widi/sortit",
+  "authors": [
+    {
+      "name": "Dirk Winkhaus",
+      "email": "dirkwinkhaus@googlemail.com"
+    }
+  ],
+  "license": "LGPL-3.0",
+  "require": {
+    "jms/serializer": "^1.9"
+  },
+  "autoload": {
+    "psr-4": {
+      "Widi\\SortIt\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Widi\\SortIt\\": "test/"
+    }
+  }
+}
