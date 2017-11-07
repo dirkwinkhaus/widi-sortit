@@ -22,18 +22,32 @@ class MyObject
      * @var MyType
      */
     private $type;
+    /**
+     * @var string
+     */
+    private $name;
 
     /**
      * MyObject constructor.
+     * @param string $name
      * @param int $value
      * @param string $label
      * @param MyType $type
      */
-    public function __construct(int $value, string $label, MyType $type)
+    public function __construct(string $name, int $value, string $label, MyType $type)
     {
         $this->value = $value;
         $this->label = $label;
         $this->type  = $type;
+        $this->name  = $name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
     }
 
     /**

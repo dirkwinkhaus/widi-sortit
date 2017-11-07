@@ -21,6 +21,11 @@ class SortMan
     private $criterias = [];
 
     /**
+     * @var int
+     */
+    private $itemCount;
+
+    /**
      * SortMan constructor.
      * @param Serializer $serializer
      */
@@ -43,7 +48,8 @@ class SortMan
      */
     public function sort($originArray): array
     {
-        $workingArray = $this->buildWorkingArray($originArray);
+        $this->itemCount = count($originArray);
+        $workingArray    = $this->buildWorkingArray($originArray);
 
         usort($workingArray, [$this, 'internalSort']);
 
@@ -59,9 +65,9 @@ class SortMan
      */
     private function internalSort($itemA, $itemB)
     {
-        $result        = 0;
-        $multiplicator = count($this->criterias) + 1;
-        $factor        = count($this->criterias) * $multiplicator;
+        $result     = 0;
+        $multiplier = $this->itemCount;
+        $factor     = pow($multiplier, count($this->criterias));
 
         foreach ($this->criterias as $criteria) {
             $field      = $criteria->getField();
@@ -74,7 +80,7 @@ class SortMan
                     $sortOption
                 ) * $factor;
 
-            $factor /= $multiplicator;
+            $factor = $factor / $multiplier;
         }
 
         return $result;
@@ -82,20 +88,19 @@ class SortMan
 
     /**
      * @param string $fieldPath
-     * @param array $array
+     * @param array $value
      * @return mixed
      */
-    private function getField(string $fieldPath, array $array)
+    private function getField(string $fieldPath, array $value)
     {
         $fields = explode('.', $fieldPath);
-
-        $array = $array['data'];
+        $value  = $value['data'];
 
         foreach ($fields as $field) {
-            $array = $array[$field];
+            $value = $value[$field];
         }
 
-        return $array;
+        return $value;
     }
 
     /**
@@ -125,6 +130,7 @@ class SortMan
         foreach ($workingArray as $workingItem) {
             $resultArray[] = $originArray[$workingItem['index']];
         }
+
         return $resultArray;
     }
 }

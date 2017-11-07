@@ -28,7 +28,15 @@ class Ascending implements SortOptionInterface
     public function getCompareFunction(): callable
     {
         return function ($a, $b) {
-            return ($a>$b)? 1 : -1;
+            if ($a>$b) {
+                return 1;
+            }
+
+            if ($a<$b) {
+                return -1;
+            }
+
+            return 0;
         };
     }
 
