@@ -12,18 +12,17 @@ use Widi\SortIt\SortMan;
 class SortManFactory
 {
     /**
-     * @return SortMan
+     * @var SerializerBuilder
      */
-    public function __invoke()
+    private $serializerBuilder;
+
+    /**
+     * SortManFactory constructor.
+     * @param SerializerBuilder $serializerBuilder
+     */
+    public function __construct(SerializerBuilder $serializerBuilder)
     {
-        $serializerBuilder = new SerializerBuilder();
-
-        $serializer = $serializerBuilder
-            ->addDefaultHandlers()
-            ->addDefaultListeners()
-            ->build();
-
-        return new SortMan($serializer);
+        $this->serializerBuilder = $serializerBuilder;
     }
 
     /**
@@ -31,6 +30,11 @@ class SortManFactory
      */
     public function create()
     {
-        return $this->__invoke();
+        $serializer = $this->serializerBuilder
+            ->addDefaultHandlers()
+            ->addDefaultListeners()
+            ->build();
+
+        return new SortMan($serializer);
     }
 }

@@ -2,6 +2,8 @@
 
 namespace Widi\SortIt\Option;
 
+use Closure;
+
 /**
  * Class Custom
  * @package Widi\SortIt\Option

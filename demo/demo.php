@@ -1,12 +1,11 @@
 <?php
 
+use JMS\Serializer\SerializerBuilder;
 use Widi\SortIt\Factory\SortManFactory;
 use Widi\SortIt\MyObject;
 use Widi\SortIt\MyType;
 use Widi\SortIt\Option\Ascending;
-use Widi\SortIt\Option\Descending;
 use Widi\SortIt\SortCriteria;
-use Widi\SortIt\SortMan;
 
 require_once '../vendor/autoload.php';
 
@@ -16,12 +15,9 @@ $myTypeC = new MyType('C');
 
 $arrayOfObjects = [
     new MyObject('1', 6, 'AA', $myTypeC),
-
     new MyObject('2', 5, 'BB', $myTypeB),
     new MyObject('3', 5, 'AB', $myTypeB),
     new MyObject('4', 5, 'AB', $myTypeA),
-
-
     new MyObject('5', 3, 'BA', $myTypeA),
     new MyObject('6', 2, 'CC', $myTypeB),
     new MyObject('7', 1, 'DD', $myTypeC),
@@ -44,7 +40,7 @@ $criteriaC = new SortCriteria(
     new Ascending()
 );
 
-$sortManFactory = new SortManFactory();
+$sortManFactory = new SortManFactory(new SerializerBuilder());
 $sortMan        = $sortManFactory->create();
 
 $sortMan->registerCriteria($criteriaA);
